@@ -29,3 +29,18 @@ public class MyQueue<T> {
         }
         return list.getFirst();
     }
+
+    // Returns the number of elements in the queue
+    public int size() {
+        return list.size();
+    }
+
+    // Checks if the queue is empty
+    public boolean isEmpty() {
+        return list.size() == 0;
+    }
+
+    public boolean empty() {
+        return isEmpty();
+    }
+}
