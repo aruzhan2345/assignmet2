@@ -104,3 +104,76 @@ public class MyLinkedList<T> implements MyList<T> {
         if (size == 0) throw new IndexOutOfBoundsException("List is empty");
         return tail.element;
     }
+
+    // Removes an element by index
+    @Override
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+        if (index == 0) {
+            removeFirst();
+        } else if (index == size - 1) {
+            removeLast();
+        } else {
+            MyNode nodeToRemove = getNodeAt(index);
+            nodeToRemove.prev.next = nodeToRemove.next;
+            nodeToRemove.next.prev = nodeToRemove.prev;
+            nodeToRemove.next = null;
+            nodeToRemove.prev = null;
+            size--;
+        }
+    }
+
+    // Removes the first element
+    @Override
+    public void removeFirst() {
+        if (size == 0) throw new IndexOutOfBoundsException("List is empty");
+        if (size == 1) {
+            head = tail = null;
+        } else {
+            MyNode temp = head;
+            head = head.next;
+            head.prev = null;
+            temp.next = null;
+        }
+        size--;
+    }
+
+    // Removes the last element
+    @Override
+    public void removeLast() {
+        if (size == 0) throw new IndexOutOfBoundsException("List is empty");
+        if (size == 1) {
+            head = tail = null;
+        } else {
+            MyNode temp = tail;
+            tail = tail.prev;
+            tail.next = null;
+            temp.prev = null;
+        }
+        size--;
+    }
+
+    // Sorts the list using bubble sort
+    @Override
+    public void sort() {
+        if (size < 2) return;
+
+        boolean swapped;
+        do {
+            swapped = false;
+            MyNode current = head;
+            while (current != null && current.next != null) {
+                T elem1 = current.element;
+                T elem2 = current.next.element;
+                Comparable comp1 = (Comparable) elem1;
+                if (comp1.compareTo(elem2) > 0) {
+                    current.element = elem2;
+                    current.next.element = elem1;
+                    swapped = true;
+                }
+                current = current.next;
+            }
+        } while (swapped);
+    }
