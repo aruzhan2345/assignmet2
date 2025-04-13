@@ -48,3 +48,55 @@ public class MyMinHeap<T extends Comparable<T>> {
     public boolean empty() {
         return isEmpty();
     }
+
+
+    // Restores heap order by moving an element up until it's in the right place
+    private void bubbleUp(int index) {
+        while (index > 0) {
+            int parentIndex = (index - 1) / 2; // Calculate parent index
+            T current = heap.get(index);
+            T parent = heap.get(parentIndex);
+            if (current.compareTo(parent) < 0) {
+                swap(index, parentIndex); // Swap with parent if smaller
+                index = parentIndex;      // Move up
+            } else {
+                break;
+            }
+        }
+    }
+
+    // Restores heap order by moving an element down until it's in the right place
+    private void bubbleDown(int index) {
+        int size = heap.size();
+        while (index < size) {
+            int leftChild = 2 * index + 1;  // Left child index
+            int rightChild = 2 * index + 2; // Right child index
+            int smallest = index;           // Start by assuming current is smallest
+
+            // Compare with left child
+            if (leftChild < size && heap.get(leftChild).compareTo(heap.get(smallest)) < 0) {
+                smallest = leftChild;
+            }
+
+            // Compare with right child
+            if (rightChild < size && heap.get(rightChild).compareTo(heap.get(smallest)) < 0) {
+                smallest = rightChild;
+            }
+
+            // If smallest is not the current node, swap and continue
+            if (smallest != index) {
+                swap(index, smallest);
+                index = smallest;
+            } else {
+                break; // Heap is in order
+            }
+        }
+    }
+
+    // Swaps two elements in the heap
+    private void swap(int i, int j) {
+        T temp = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, temp);
+    }
+}
