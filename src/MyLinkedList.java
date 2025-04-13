@@ -177,3 +177,116 @@ public class MyLinkedList<T> implements MyList<T> {
             }
         } while (swapped);
     }
+
+    // Returns index of the first match of an object
+    @Override
+    public int indexOf(Object object) {
+        int index = 0;
+        MyNode current = head;
+        while (current != null) {
+            if (object == null ? current.element == null : object.equals(current.element)) {
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        return -1;
+    }
+
+    // Returns index of the last match of an object
+    @Override
+    public int lastIndexOf(Object object) {
+        int index = size - 1;
+        MyNode current = tail;
+        while (current != null) {
+            if (object == null ? current.element == null : object.equals(current.element)) {
+                return index;
+            }
+            current = current.prev;
+            index--;
+        }
+        return -1;
+    }
+
+    // Checks if the object exists in the list
+    @Override
+    public boolean exists(Object object) {
+        return indexOf(object) != -1;
+    }
+
+    // Converts the list into a regular array
+    @Override
+    public Object[] toArray() {
+        Object[] arr = new Object[size];
+        int i = 0;
+        MyNode current = head;
+        while (current != null) {
+            arr[i++] = current.element;
+            current = current.next;
+        }
+        return arr;
+    }
+
+    // Clears the entire list
+    @Override
+    public void clear() {
+        MyNode current = head;
+        while (current != null) {
+            MyNode next = current.next;
+            current.prev = null;
+            current.next = null;
+            current = next;
+        }
+        head = tail = null;
+        size = 0;
+    }
+
+    // Returns number of elements in the list
+    @Override
+    public int size() {
+        return size;
+    }
+
+    // Returns an iterator to support enhanced for-loop
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private MyNode current = head;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new java.util.NoSuchElementException();
+                }
+                T element = current.element;
+                current = current.next;
+                return element;
+            }
+        };
+    }
+
+    // Utility method to get a node by index
+    private MyNode getNodeAt(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+        MyNode current;
+        if (index < size / 2) {
+            current = head;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+        } else {
+            current = tail;
+            for (int i = size - 1; i > index; i--) {
+                current = current.prev;
+            }
+        }
+        return current;
+    }
+}
