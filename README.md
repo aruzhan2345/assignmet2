@@ -1,40 +1,53 @@
-Java Data Structures (Custom Implementations)
+- `MyArrayList` — array-based list
+- `MyLinkedList` — doubly linked list
+- `MyStack` — stack using `MyArrayList`
+- `MyQueue` — queue using `MyLinkedList`
+- `MyMinHeap` — min-heap using `MyArrayList`
 
-MyList<T>
-An interface that defines a custom list structure. All other list classes (`MyArrayList`, `MyLinkedList`) implement this interface.
+All classes are tested in the `Main.java` file.
 
-MyArrayList<T>
-A custom implementation of a dynamic array.  
-Key features:
-- Automatically resizes when full
-- Supports `add`, `remove`, `get`, `set`, `sort`, `indexOf`, `exists`, `clear`, `toArray`
-- Allows iteration with `Iterator`
 
-MyLinkedList<T>
-A doubly linked list implementation.  
-Key features:
-- Nodes have `next` and `prev` pointers
-- Supports `addFirst`, `addLast`, `removeFirst`, `removeLast`, `sort`, `indexOf`, and more
+Implemented Classes
+
+MyList<T> (Interface)
+- Declares all core list operations like `add`, `remove`, `get`, `sort`, etc.
+- Used as the base interface for both `MyArrayList` and `MyLinkedList`.
+
+
+MyArrayList<T> (Array-based List)
+- Stores elements in a dynamically resizable `Object[]`.
+- Implements all list operations from `MyList`.
+- Supports sorting via Bubble Sort using `T extends Comparable<T>`.
+- Used as the base for `MyStack` and `MyMinHeap`.
+
+
+MyLinkedList<T> (Doubly Linked List)
+- Uses an inner `MyNode` class with `next` and `prev` references.
+- Fully implements `MyList`.
+- Properly handles memory and prevents loops.
+- Used as the base for `MyQueue`.
+
 
 MyStack<T>
-A stack built on top of `MyArrayList`.  
-Key methods:
-- `push()`, `pop()`, `peek()`, `isEmpty()`
+- Implements LIFO behavior using `MyArrayList`.
+- Methods: `push`, `pop`, `peek`, `size`, `isEmpty`.
+
 
 MyQueue<T>
-A queue implemented using `MyLinkedList`.  
-Key methods:
-- `enqueue()`, `dequeue()`, `peek()`, `isEmpty()`
+- Implements FIFO behavior using `MyLinkedList`.
+- Methods: `enqueue`, `dequeue`, `peek`, `size`, `isEmpty`.
+
 
 MyMinHeap<T>
-A min-heap (priority queue) using `MyArrayList` internally.  
-Key methods:
-- `insert()`, `getMin()`, `removeMin()`, with internal `bubbleUp` and `bubbleDown` logic
+- Implements a binary min-heap using `MyArrayList`.
+- Maintains heap property using `bubbleUp` and `bubbleDown`.
+- Methods: `insert`, `removeMin`, `getMin`, `size`, `isEmpty`.
 
-Main.java
-The `Main` class demonstrates and tests the behavior of all data structures.  
-It includes examples like:
-- Adding and removing elements
-- Sorting lists
-- Stack and queue operations
-- Heap insertion and minimum retrieval
+
+Testing
+
+All data structures are tested in the `Main.java` file:
+- Adding, removing, sorting, searching elements.
+- Stack: push/pop/peek
+- Queue: enqueue/dequeue/peek
+- Heap: insert/removeMin/getMin
