@@ -170,3 +170,49 @@ public class MyArrayList<T> implements MyList<T> {
     public boolean exists(Object object) {
         return indexOf(object) != -1;
     }
+
+    // Returns array copy of elements
+    @Override
+    public Object[] toArray() {
+        Object[] arr = new Object[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = elements[i];
+        }
+        return arr;
+    }
+
+    // Clears the list
+    @Override
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
+    }
+
+    // Returns number of elements
+    @Override
+    public int size() {
+        return size;
+    }
+
+    // Provides an iterator for the list
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            int current = 0;
+            @Override
+            public boolean hasNext() {
+                return current < size;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new java.util.NoSuchElementException();
+                }
+                return (T) elements[current++];
+            }
+        };
+    }
+}
