@@ -91,3 +91,82 @@ public class MyArrayList<T> implements MyList<T> {
         }
         return get(size - 1);
     }
+
+
+    // Removes element at a given index
+    @Override
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+        for (int i = index; i < size - 1; i++) {
+            elements[i] = elements[i + 1]; // shift elements left
+        }
+        elements[size - 1] = null;
+        size--;
+    }
+
+    // Removes first element
+    @Override
+    public void removeFirst() {
+        remove(0);
+    }
+
+    // Removes last element
+    @Override
+    public void removeLast() {
+        if (size == 0) {
+            throw new IndexOutOfBoundsException("List is empty");
+        }
+        elements[size - 1] = null;
+        size--;
+    }
+
+    // Sorts elements using bubble sort
+    @Override
+    public void sort() {
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size - i - 1; j++) {
+                T elem1 = (T) elements[j];
+                T elem2 = (T) elements[j + 1];
+                Comparable comp1 = (Comparable) elem1;
+                if (comp1.compareTo(elem2) > 0) {
+                    Object temp = elements[j];
+                    elements[j] = elements[j + 1];
+                    elements[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // Returns index of first occurrence of an object
+    @Override
+    public int indexOf(Object object) {
+        for (int i = 0; i < size; i++) {
+            if (object == null) {
+                if (elements[i] == null) return i;
+            } else {
+                if (object.equals(elements[i])) return i;
+            }
+        }
+        return -1;
+    }
+
+    // Returns index of last occurrence of an object
+    @Override
+    public int lastIndexOf(Object object) {
+        for (int i = size - 1; i >= 0; i--) {
+            if (object == null) {
+                if (elements[i] == null) return i;
+            } else {
+                if (object.equals(elements[i])) return i;
+            }
+        }
+        return -1;
+    }
+
+    // Checks if object exists in list
+    @Override
+    public boolean exists(Object object) {
+        return indexOf(object) != -1;
+    }
