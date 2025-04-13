@@ -29,3 +29,19 @@ public class MyStack<T> {
         }
         return list.get(list.size() - 1);
     }
+
+    // Returns the number of elements in the stack
+    public int size() {
+        return list.size();
+    }
+
+    // Checks if the stack is empty
+    public boolean isEmpty() {
+        return list.size() == 0;
+    }
+
+    public boolean empty() {
+        return isEmpty();
+    }
+}
+
